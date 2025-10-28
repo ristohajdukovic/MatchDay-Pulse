@@ -19,9 +19,9 @@
 
 <main id="app" role="main">
     <section id="calendar-nav" aria-label="Calendar navigation">
-        <button id="prev-month" type="button" aria-label="Previous month"><</button>
-        <h2 id="current-month" aria-live="polite">Month YYYY</h2>
-        <button id="next-month" type="button" aria-label="Next month">></button>
+        <button id="prev" type="button" aria-label="Previous month"><</button>
+        <h2 id="month-label" aria-live="polite">Month YYYY</h2>
+        <button id="next" type="button" aria-label="Next month">></button>
     </section>
 
     <section id="calendar-section" aria-label="Monthly Calendar">
@@ -36,14 +36,14 @@
             <li>Sun</li>
         </ol>
 
-        <div id="calendar-grid" class="calendar-grid" role="grid" aria-readonly="true">
+        <div id="calendar" class="calendar-grid" role="grid" aria-readonly="true">
 
         </div>
     </section>
 </main>
 
     <!--Script-->
-    <script src="./app.js" defer></script>
+    <script src="./script.js" defer></script>
 
 
 </body>
