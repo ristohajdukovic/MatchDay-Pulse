@@ -1,0 +1,135 @@
+
+:root {
+  --bg: #0f1117;
+  --card: #171b21;
+  --text: #e9edf3;
+  --muted: #8b949e;
+  --accent: #ff8752;
+  --radius: 10px;
+  --transition: 0.2s ease;
+  --font-main: 'Rajdhani', sans-serif;
+  --font-body: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* HEADER */
+#header {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#header h1 {
+  font-family: var(--font-main);
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+
+#navBtn {
+  background: transparent;
+  border: 1px solid var(--muted);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+#navBtn:hover {
+  background: var(--card);
+}
+
+#nav {
+  display: flex;
+  gap: 10px;
+}
+
+#nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+}
+
+#nav a.active,
+#nav a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* MAIN */
+main {
+  width: 100%;
+  max-width: 1000px;
+}
+
+#calendar-area {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* CALENDAR HEADER */
+#calendar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#month-label {
+  font-family: var(--font-main);
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.month-buttons button {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.month-buttons button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* WEEKDAYS */
+#weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-main);
+  margin-bottom: 10px;
+}
