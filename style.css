@@ -152,6 +152,29 @@ main {
   visibility: hidden;
 }
 
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+
+
+
+
+
+
+
+
+
 /* RESPONSIVENESS */
 @media (max-width: 600px) {
   body {

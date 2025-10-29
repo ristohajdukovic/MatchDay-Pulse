@@ -68,6 +68,24 @@ function renderCalendar(year, month) {
     box.className = "day";
     box.textContent = day;
 
+    let m = month + 1;
+    let d = day;
+    if (m < 10) m = "0" + m;
+    if (d < 10) d = "0" + d;
+    const dateStr = year + "-" + m + "-" + d;
+
+    const dayMatches = matches.filter(m => m.dateVenue === dateStr);
+    if (dayMatches.length > 0) {
+    const dotsWrap = document.createElement("div");
+    dotsWrap.className = "dots";
+    for (let i = 0; i < dayMatches.length; i++) {
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dotsWrap.appendChild(dot);
+  }
+  box.appendChild(dotsWrap);
+}
+
     if (isToday(year, month, day)) {
       box.classList.add("today");
     }
@@ -86,18 +104,6 @@ function isToday(year, month, day) {
   );
 }
 
-function loadMatches() {
-  fetch("./matches.json")
-    .then(response => response.json())
-    .then(json => {
-      matches = json.data;
-      console.log("Loaded matches!");
-    })
-    .catch(error => {
-      console.log("Oops something went wrong");
-    });
-}
-
 // LOAD MATCHES
 function loadMatches() {
   fetch("./matches.json")
@@ -109,4 +115,5 @@ function loadMatches() {
     .catch(error => {
       console.log("Error loading matches");
     });
+    renderCalendar(currentYear, currentMonth);
 }
