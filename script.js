@@ -1,6 +1,7 @@
 
 let currentMonth;
 let currentYear;
+let matches = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   const today = new Date();
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderCalendar(currentYear, currentMonth);
   bindNavigation();
+  loadMatches();
 });
 
 // CHANGE MONTH
@@ -82,4 +84,29 @@ function isToday(year, month, day) {
     now.getMonth() === month &&
     now.getDate() === day
   );
+}
+
+function loadMatches() {
+  fetch("./matches.json")
+    .then(response => response.json())
+    .then(json => {
+      matches = json.data;
+      console.log("Loaded matches!");
+    })
+    .catch(error => {
+      console.log("Oops something went wrong");
+    });
+}
+
+// LOAD MATCHES
+function loadMatches() {
+  fetch("./matches.json")
+    .then(response => response.json())
+    .then(json => {
+      matches = json.data;
+      console.log("Loaded matches from file");
+    })
+    .catch(error => {
+      console.log("Error loading matches");
+    });
 }
