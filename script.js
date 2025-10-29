@@ -84,6 +84,10 @@ function renderCalendar(year, month) {
     dotsWrap.appendChild(dot);
   }
   box.appendChild(dotsWrap);
+
+    box.addEventListener("click", () => {
+      openMatchPanel(dayMatches, dateStr);
+    });
 }
 
     if (isToday(year, month, day)) {
@@ -93,6 +97,48 @@ function renderCalendar(year, month) {
     calendar.appendChild(box);
   }
 }
+
+// PANEL FUNCTIONS
+
+function openMatchPanel(matchesForDay, dateStr) {
+  const panel = document.getElementById("match-panel");
+  const title = document.getElementById("panel-title");
+  const body = document.getElementById("panel-body");
+
+  title.textContent = `Matches on ${dateStr}`;
+  body.innerHTML = "";
+
+  matchesForDay.forEach(match => {
+    const card = document.createElement("div");
+    card.className = "match-card";
+
+    const home = match.homeTeam?.name || "TBD";
+    const away = match.awayTeam?.name || "TBD";
+    const time = match.timeVenueUTC || "Time N/A";
+    const comp = match.originCompetitionName || "Unknown";
+    const sport = match.sport || "Football";
+
+    card.innerHTML = `
+      <h3>${home} vs ${away}</h3>
+      <div class="match-meta">
+        <span>${time}</span>
+        <span>${comp}</span>
+        <span class="match-tag">${sport}</span>
+      </div>
+    `;
+
+    body.appendChild(card);
+  });
+
+  panel.classList.add("show");
+  panel.classList.remove("hidden");
+}
+
+function closeMatchPanel() {
+  const panel = document.getElementById("match-panel");
+  panel.classList.remove("show");
+}
+
 
 // ===== HELPER =====
 function isToday(year, month, day) {
@@ -111,9 +157,17 @@ function loadMatches() {
     .then(json => {
       matches = json.data;
       console.log("Loaded matches from file");
+      renderCalendar(currentYear, currentMonth);
     })
     .catch(error => {
       console.log("Error loading matches");
     });
     renderCalendar(currentYear, currentMonth);
 }
+
+
+document.addEventListener("click", (e) => {
+  if (e.target.id === "close-panel") {
+    closeMatchPanel();
+  }
+});
