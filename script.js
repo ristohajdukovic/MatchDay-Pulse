@@ -163,14 +163,23 @@ function loadMatches() {
   fetch("./matches.json")
     .then(response => response.json())
     .then(json => {
-      matches = json.data;
+      const baseMatches = json.data;
+      const addedMatches = sessionStorage.getItem("addedMatches");
+      
+      if (addedMatches) {
+        const newMatches = JSON.parse(addedMatches);
+        for (let i = 0; i < newMatches.length; i++) {
+          baseMatches.push(newMatches[i]);
+        }
+      }
+      
+      matches = baseMatches;
       console.log("Loaded matches from file");
       renderCalendar(currentYear, currentMonth);
     })
     .catch(error => {
       console.log("Error loading matches");
     });
-    
 }
 
 
