@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Match Details – MatchDay Pulse</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header id="site-header">
+    <h1 id="app-title">MatchDay Pulse</h1>
+    <nav id="app-nav" aria-label="Primary">
+      <a href="./index.html">Calendar</a>
+      <a href="./app.html">Add Match</a>
+    </nav>
+  </header>
+
+  <main id="app" role="main">
+    <!-- BACK BUTTON -->
+    <div id="match-back">
+      <a href="./index.html" class="back-btn">&larr; Back</a>
+    </div>
+
+    <!-- MATCH DETAILS SECTION -->
+    <section id="match-details">
+      <!-- Sport tag -->
+      <div class="match-sport-tag">Football</div>
+
+      <!-- Status tag -->
+      <div class="match-status finished">Finished</div>
+      <!-- If match is scheduled, use: <div class="match-status scheduled">To be played</div> -->
+
+      <!-- Teams and score -->
+      <div class="match-scoreboard">
+        <div class="team-name home">Team A</div>
+        <div class="score">
+          <span class="home-score">2</span>
+          <span class="dash">–</span>
+          <span class="away-score">1</span>
+        </div>
+        <div class="team-name away">Team B</div>
+      </div>
+
+      <!-- Info row -->
+      <div class="match-info-row">
+        <div class="info-item">
+          <span class="info-icon">📅</span>
+          <span class="info-label">Date</span>
+          <span class="info-value">2025-11-03</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">⏰</span>
+          <span class="info-label">Time</span>
+          <span class="info-value">18:30</span>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🏟️</span>
+          <span class="info-label">Stadium</span>
+          <span class="info-value">Al Shabab Arena</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+if (id) {
+  fetch("./matches.json")
+    .then(res => res.json())
+    .then(json => {
+      const matches = json.data || [];
+      
+      // Find the match
+      let match = null;
+      for (let i = 0; i < matches.length; i++) {
+        const m = matches[i];
+        const homeTeam = m.homeTeam ? m.homeTeam.name : "";
+        const awayTeam = m.awayTeam ? m.awayTeam.name : "";
+        const key = m.dateVenue + "_" + homeTeam + "_" + awayTeam;
+        if (key === id) {
+          match = m;
+          break;
+        }
+      }
+      
+      if (!match) return;
+
+      // Sport tag
+      document.querySelector(".match-sport-tag").textContent = match.sport || "Football";
+
+      // Status tag
+      const statusEl = document.querySelector(".match-status");
+      if (match.status === "played") {
+        statusEl.textContent = "Finished";
+        statusEl.className = "match-status finished";
+      } else {
+        statusEl.textContent = "To be played";
+        statusEl.className = "match-status scheduled";
+      }
+
+      // Team names
+      document.querySelector(".home").textContent = match.homeTeam?.name || "TBD";
+      document.querySelector(".away").textContent = match.awayTeam?.name || "TBD";
+
+      // Scores
+      if (match.result && match.result.homeGoals != null) {
+        document.querySelector(".home-score").textContent = match.result.homeGoals;
+        document.querySelector(".away-score").textContent = match.result.awayGoals;
+      } else {
+        document.querySelector(".home-score").textContent = "-";
+        document.querySelector(".away-score").textContent = "-";
+      }
+
+      // Match info row
+      const infoValues = document.querySelectorAll(".info-value");
+      infoValues[0].textContent = match.dateVenue || "-";
+      infoValues[1].textContent = match.timeVenueUTC || "-";
+      infoValues[2].textContent = match.stadium || "Unknown";
+    })
+    .catch(err => console.error("Error loading match:", err));
+}
+
+</script>
+
+
+</body>
+</html>
