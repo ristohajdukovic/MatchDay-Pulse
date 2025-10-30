@@ -256,6 +256,89 @@ main {
 }
 
 
+/* MATCH DETAILS PAGE  */
+#match-back {
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+#match-details {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+
+.match-sport-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.match-status {
+  font-family: var(--font-main);
+  margin-bottom: 20px;
+}
+.match-status.finished {
+  color: var(--accent);
+}
+.match-status.scheduled {
+  color: var(--muted);
+}
+
+.match-scoreboard {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 24px;
+  gap: 10px;
+}
+.team-name {
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+}
+.score {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.dash {
+  margin: 0 4px;
+  color: var(--muted);
+}
+
+.match-info-row {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.info-item {
+  text-align: center;
+}
+.info-icon {
+  display: block;
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+.info-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.info-value {
+  font-weight: 600;
+}
 
 
 
