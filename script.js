@@ -127,7 +127,15 @@ function openMatchPanel(matchesForDay, dateStr) {
       </div>
     `;
 
+    card.addEventListener("click", () => {
+
+  const matchId = match.dateVenue + "_" + home + "_" + away;
+  window.location.href = "matchDet.html?id=" + matchId;
+
+  });
+
     body.appendChild(card);
+
   });
 
   panel.classList.add("show");
@@ -162,7 +170,7 @@ function loadMatches() {
     .catch(error => {
       console.log("Error loading matches");
     });
-    renderCalendar(currentYear, currentMonth);
+    
 }
 
 
