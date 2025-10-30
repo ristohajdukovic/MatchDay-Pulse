@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Match</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header id="site-header">
+    <h1 id="app-title">MatchDay Pulse</h1>
+    <nav id="app-nav">
+      <a href="index.html">Calendar</a>
+      <a href="add.html" class="active">Add Match</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h2>Add New Match</h2>
+      <p>Fill in the match details below.</p>
+
+      <form id="addMatchForm">
+        <div class="form-section">
+          <h3>Match Info</h3>
+          
+          <label for="sport">Sport</label>
+          <select id="sport" required>
+            <option value="">Select sport</option>
+            <option value="football">Football</option>
+            <option value="ice-hockey">Ice Hockey</option>
+          </select>
+
+          <label for="status">Status</label>
+          <select id="status" required>
+            <option value="">Select status</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="played">Played</option>
+          </select>
+
+          <label for="dateVenue">Date</label>
+          <input type="date" id="dateVenue" required>
+
+          <label for="timeVenueUTC">Time (UTC)</label>
+          <input type="time" id="timeVenueUTC" required>
+        </div>
+
+        <div class="form-section">
+          <h3>Competition</h3>
+          
+          <label for="competition">Competition Name</label>
+          <input type="text" id="competition" placeholder="e.g. UEFA Champions League">
+
+          <label for="stage">Stage</label>
+          <select id="stage">
+            <option value="">Select stage</option>
+            <option value="regular-season">Regular Season</option>
+            <option value="group">Group Stage</option>
+            <option value="round-16">Round of 16</option>
+            <option value="quarter">Quarter-Final</option>
+            <option value="semi">Semi-Final</option>
+            <option value="final">Final</option>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <h3>Home Team</h3>
+          
+          <label for="homeName">Team Name</label>
+          <input type="text" id="homeName" placeholder="Home Team" required>
+
+          <label for="homeCountry">Country</label>
+          <select id="homeCountry" required>
+            <option value="">Select country</option>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <h3>Away Team</h3>
+          
+          <label for="awayName">Team Name</label>
+          <input type="text" id="awayName" placeholder="Away Team" required>
+
+          <label for="awayCountry">Country</label>
+          <select id="awayCountry" required>
+            <option value="">Select country</option>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <h3>Venue</h3>
+          
+          <label for="stadium">Stadium</label>
+          <input type="text" id="stadium" placeholder="Stadium name (optional)">
+        </div>
+
+        <div class="form-section" id="resultSection" style="display: none;">
+          <h3>Result</h3>
+          
+          <label for="homeGoals">Home Goals</label>
+          <input type="number" id="homeGoals" min="0">
+
+          <label for="awayGoals">Away Goals</label>
+          <input type="number" id="awayGoals" min="0">
+        </div>
+
+        <button type="submit">Save Match</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="add.js"></script>
+</body>
+</html>
