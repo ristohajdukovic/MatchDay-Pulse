@@ -12,16 +12,18 @@
      <header id="site-header">
         <h1 id="app-title">MatchDay Pulse</h1>
            <nav id="app-nav" aria-label="Primary">
-            <a href="./index.html" aria-current="page">Calendar</a>
-            <a href="./app.html">Add Match</a>
+            <a href="index.html" aria-current="page">Calendar</a>
+            <a href="./add.html">Add Match</a>
         </nav>
      </header>
 
 <main id="app" role="main">
     <section id="calendar-nav" aria-label="Calendar navigation">
+         <h2 id="month-label" aria-live="polite">Month YYYY</h2>
+         <div>
         <button id="prev" type="button" aria-label="Previous month"><</button>
-        <h2 id="month-label" aria-live="polite">Month YYYY</h2>
         <button id="next" type="button" aria-label="Next month">></button>
+        </div>
     </section>
 
     <section id="calendar-section" aria-label="Monthly Calendar">

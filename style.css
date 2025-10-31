@@ -62,7 +62,7 @@ body {
 }
 
 #app-nav a.active,
-#app-nav a:[aria-current="page"] {
+#app-nav a[aria-current="page"] {
   background: var(--accent);
   color: #fff;
 }
@@ -77,6 +77,12 @@ main {
   background: var(--card);
   border-radius: var(--radius);
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 0 1rem;
 }
 
 #calendar-nav h2{
@@ -97,11 +103,17 @@ main {
   transition: background var(--transition);
 }
 
+.month-label {
+
+}
+
 #calendar-section {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 /* WEEKDAYS */
@@ -109,27 +121,43 @@ main {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  max-width: 990px;
   text-align: center;
   color: var(--muted);
   font-family: var(--font-main);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.9rem;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  padding: 0 10px;
+
+}
+
+#weekday-row li {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 6px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4px 10px 16px;
 }
 
 .day {
   background: var(--bg);
   border: 1px solid var(--muted);
   border-radius: var(--radius);
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1.5 / 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 0.95rem;
@@ -137,7 +165,6 @@ main {
 }
 
 .day:hover {
-  background: var(--accent);
   border-color: var(--accent);
   color: #fff;
 }
@@ -225,6 +252,7 @@ main {
   padding: 12px 14px;
   margin-bottom: 10px;
   transition: border 0.2s;
+  cursor: pointer;
 }
 
 .match-card:hover {
@@ -347,21 +375,138 @@ main {
 
 
 
-/* RESPONSIVENESS */
-@media (max-width: 600px) {
-  body {
-    padding: 10px;
+/* ===== RESPONSIVENESS ===== */
+
+/* Tablet (≤900px) */
+@media (max-width: 900px) {
+  #site-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
   }
 
-  #calendar-section {
-    padding: 14px;
+  #calendar-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  #calendar-nav h2 {
+    font-size: 1.3rem;
   }
 
   .calendar-grid {
+    grid-template-columns: repeat(7, 1fr); /* keep 7 columns */
+    gap: 6px;
+  }
+
+  .day {
+    font-size: 0.85rem;
+  }
+}
+
+/* Mobile (≤600px) */
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  #app-title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  #app-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #calendar-nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #calendar-nav h2 {
+    font-size: 1.1rem;
+  }
+
+  #weekday-row {
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr); /* always 7 columns */
     gap: 4px;
   }
 
   .day {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    min-width: 38px;
+    min-height: 38px;
+    padding: 4px;
+  }
+
+  /* Slide-over becomes bottom drawer */
+  .panel {
+    width: 100%;
+    height: 60%;
+    bottom: 0;
+    top: auto;
+    right: 0;
+    border-left: none;
+    border-top: 2px solid var(--accent);
+    transform: translateY(100%);
+    transition: transform 0.3s var(--transition);
+  }
+
+  .panel.show {
+    transform: translateY(0);
+  }
+
+  .close-btn {
+    top: 8px;
+    right: 12px;
+  }
+
+  .panel-content {
+    padding: 16px;
+  }
+
+  /* Match details page */
+  #match-details {
+    padding: 16px;
+  }
+
+  .match-scoreboard {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .team-name {
+    font-size: 1rem;
+  }
+
+  .score {
+    font-size: 1.4rem;
+  }
+
+  .match-info-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-item {
+    width: 100%;
+  }
+
+  .back-btn {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
   }
 }
