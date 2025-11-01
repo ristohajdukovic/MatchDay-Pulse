@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   currentMonth = today.getMonth();
   currentYear = today.getFullYear();
 
-  renderCalendar(currentYear, currentMonth);
+  renderCalendar(currentYear, currentMonth)
   bindNavigation();
   loadMatches();
 });
@@ -128,9 +128,8 @@ function openMatchPanel(matchesForDay, dateStr) {
     `;
 
     card.addEventListener("click", () => {
-
-  const matchId = match.dateVenue + "_" + home + "_" + away;
-  window.location.href = "matchDet.html?id=" + matchId;
+    const matchId = match.id || createMatchId(match);  
+    window.location.href = "matchDet.html?id=" + matchId;
 
   });
 
@@ -158,6 +157,17 @@ function isToday(year, month, day) {
   );
 }
 
+function createMatchId(match) {
+  const date = match.dateVenue || "nodate";
+  const homeName = match.homeTeam?.name || "unknown";
+  const awayName = match.awayTeam?.name || "unknown";
+  
+  const home = homeName.toLowerCase().replace(/ /g, "-");
+  const away = awayName.toLowerCase().replace(/ /g, "-");
+  
+  return date + "_" + home + "_" + away;
+}
+
 // LOAD MATCHES
 function loadMatches() {
   fetch("./matches.json")
@@ -165,6 +175,12 @@ function loadMatches() {
     .then(json => {
       const baseMatches = json.data;
       const addedMatches = sessionStorage.getItem("addedMatches");
+
+      for (let i = 0; i < baseMatches.length; i++) {
+        if (!baseMatches[i].id) {
+          baseMatches[i].id = createMatchId(baseMatches[i]);
+        }
+      }
       
       if (addedMatches) {
         const newMatches = JSON.parse(addedMatches);
@@ -174,11 +190,18 @@ function loadMatches() {
       }
       
       matches = baseMatches;
-      console.log("Loaded matches from file");
+      filteredMatches = baseMatches;
+
+
+console.log("Loaded", matches.length, "matches");
+      
       renderCalendar(currentYear, currentMonth);
     })
     .catch(error => {
-      console.log("Error loading matches");
+      console.log("Error loading matches:", error);
+      matches = [];
+      filteredMatches = [];
+      renderCalendar(currentYear, currentMonth);
     });
 }
 

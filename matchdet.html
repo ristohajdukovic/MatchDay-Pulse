@@ -12,7 +12,7 @@
     <h1 id="app-title">MatchDay Pulse</h1>
     <nav id="app-nav" aria-label="Primary">
       <a href="./index.html">Calendar</a>
-      <a href="./app.html">Add Match</a>
+      <a href="./add.html">Add Match</a>
     </nav>
   </header>
 
@@ -65,7 +65,19 @@
 
 
 <script>
+// Helper function (same as in script.js)
+function createMatchId(match) {
+  const date = match.dateVenue || "nodate";
+  const homeName = match.homeTeam?.name || "unknown";
+  const awayName = match.awayTeam?.name || "unknown";
+  
+  const home = homeName.toLowerCase().replace(/ /g, "-");
+  const away = awayName.toLowerCase().replace(/ /g, "-");
+  
+  return date + "_" + home + "_" + away;
+}
 
+// Get the ID from URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
@@ -73,27 +85,44 @@ if (id) {
   fetch("./matches.json")
     .then(res => res.json())
     .then(json => {
-      const matches = json.data || [];
+      const baseMatches = json.data || [];
+      const addedMatches = sessionStorage.getItem("addedMatches");
       
-      // Find the match
+      // Add IDs to base matches
+      for (let i = 0; i < baseMatches.length; i++) {
+        if (!baseMatches[i].id) {
+          baseMatches[i].id = createMatchId(baseMatches[i]);
+        }
+      }
+      
+      // Get added matches and combine
+      let allMatches = baseMatches;
+      
+      if (addedMatches) {
+        const newMatches = JSON.parse(addedMatches);
+        
+        for (let i = 0; i < newMatches.length; i++) {
+          allMatches.push(newMatches[i]);
+        }
+      }
+      
+      // Find the match with matching ID
       let match = null;
-      for (let i = 0; i < matches.length; i++) {
-        const m = matches[i];
-        const homeTeam = m.homeTeam ? m.homeTeam.name : "";
-        const awayTeam = m.awayTeam ? m.awayTeam.name : "";
-        const key = m.dateVenue + "_" + homeTeam + "_" + awayTeam;
-        if (key === id) {
-          match = m;
+      for (let i = 0; i < allMatches.length; i++) {
+        if (String(allMatches[i].id) === String(id)) {
+          match = allMatches[i];
           break;
         }
       }
       
-      if (!match) return;
+      if (!match) {
+        console.log("Match not found");
+        return;
+      }
 
-      // Sport tag
+      // Display the match details
       document.querySelector(".match-sport-tag").textContent = match.sport || "Football";
 
-      // Status tag
       const statusEl = document.querySelector(".match-status");
       if (match.status === "played") {
         statusEl.textContent = "Finished";
@@ -103,11 +132,9 @@ if (id) {
         statusEl.className = "match-status scheduled";
       }
 
-      // Team names
       document.querySelector(".home").textContent = match.homeTeam?.name || "TBD";
       document.querySelector(".away").textContent = match.awayTeam?.name || "TBD";
 
-      // Scores
       if (match.result && match.result.homeGoals != null) {
         document.querySelector(".home-score").textContent = match.result.homeGoals;
         document.querySelector(".away-score").textContent = match.result.awayGoals;
@@ -116,7 +143,6 @@ if (id) {
         document.querySelector(".away-score").textContent = "-";
       }
 
-      // Match info row
       const infoValues = document.querySelectorAll(".info-value");
       infoValues[0].textContent = match.dateVenue || "-";
       infoValues[1].textContent = match.timeVenueUTC || "-";
@@ -124,7 +150,6 @@ if (id) {
     })
     .catch(err => console.error("Error loading match:", err));
 }
-
 </script>
 
 
