@@ -129,7 +129,7 @@ function openMatchPanel(matchesForDay, dateStr) {
 
     card.addEventListener("click", () => {
     const matchId = match.id || createMatchId(match);  
-    window.location.href = "matchDet.html?id=" + matchId;
+    window.location.href = "matchdet.html?id=" + matchId;
 
   });
 
@@ -190,7 +190,7 @@ function loadMatches() {
       }
       
       matches = baseMatches;
-      filteredMatches = baseMatches;
+      // filteredMatches = baseMatches;
 
 
 console.log("Loaded", matches.length, "matches");
@@ -210,4 +210,12 @@ document.addEventListener("click", (e) => {
   if (e.target.id === "close-panel") {
     closeMatchPanel();
   }
+
+  
 });
+
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMatchPanel();
+});
+
