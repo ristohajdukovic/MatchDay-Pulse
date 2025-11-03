@@ -50,17 +50,17 @@
       <!-- Info row -->
       <div class="match-info-row">
         <div class="info-item">
-          <span class="info-icon">📅</span>
-          <span class="info-label">Date</span>
-          <span class="info-value">2025-11-03</span>
+        <img src="./icons/date.svg" alt="Date" class="info-icon">          
+        <span class="info-label">Date</span>
+        <span class="info-value">2025-11-03</span>
         </div>
         <div class="info-item">
-          <span class="info-icon">⏰</span>
+          <img src="./icons/time.svg" alt="Time" class="info-icon">
           <span class="info-label">Time</span>
           <span class="info-value">18:30</span>
         </div>
         <div class="info-item">
-          <span class="info-icon">🏟️</span>
+          <img src="./icons/stadium.svg" alt="Stadium" class="info-icon">
           <span class="info-label">Stadium</span>
           <span class="info-value">Al Shabab Arena</span>
         </div>
@@ -150,7 +150,7 @@ if (id) {
 
       const infoValues = document.querySelectorAll(".info-value");
       infoValues[0].textContent = match.dateVenue || "-";
-      infoValues[1].textContent = match.timeVenueUTC || "-";
+      infoValues[1].textContent = match.timeVenueUTC ? match.timeVenueUTC.substring(0,5) : "-";
       infoValues[2].textContent = match.stadium || "Unknown";
     })
     .catch(err => console.error("Error loading match:", err));

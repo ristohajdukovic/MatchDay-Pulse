@@ -494,9 +494,11 @@ main {
   text-align: center;
 }
 .info-icon {
-  display: block;
-  font-size: 1.3rem;
-  margin-bottom: 4px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
 }
 .info-label {
   display: block;
