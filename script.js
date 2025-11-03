@@ -75,9 +75,11 @@ function renderCalendar(year, month) {
     const dateStr = year + "-" + m + "-" + d;
 
     const dayMatches = matches.filter(m => m.dateVenue === dateStr);
+
     if (dayMatches.length > 0) {
     const dotsWrap = document.createElement("div");
     dotsWrap.className = "dots";
+
     for (let i = 0; i < dayMatches.length; i++) {
     const dot = document.createElement("span");
     dot.className = "dot";
@@ -85,10 +87,31 @@ function renderCalendar(year, month) {
   }
   box.appendChild(dotsWrap);
 
+// If this day has matches, show a tooltip
+
+  const firstMatch = dayMatches[0];
+  const homeName = firstMatch.homeTeam?.name || "TBD";
+  const awayName = firstMatch.awayTeam?.name || "TBD";
+  
+  const tooltip = document.createElement("div");
+  tooltip.className = "tip";
+  
+  let tooltipText = homeName + " vs " + awayName;
+  
+  if (dayMatches.length > 1) {
+    const additionalMatches = dayMatches.length - 1;
+    tooltipText = tooltipText + " +" + additionalMatches;
+  }
+  
+  tooltip.textContent = tooltipText;
+  box.appendChild(tooltip);
+
+
     box.addEventListener("click", () => {
       openMatchPanel(dayMatches, dateStr);
     });
-}
+
+  }
 
     if (isToday(year, month, day)) {
       box.classList.add("today");

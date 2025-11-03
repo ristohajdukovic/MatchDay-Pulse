@@ -193,6 +193,34 @@ main {
   background: var(--accent);
 }
 
+  /* Day tooltip */
+.day { position: relative; overflow: visible; }
+.calendar-grid { overflow: visible; }
+
+.day .tip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: var(--card);
+  border: 1px solid var(--text);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 0.875rem;
+  color: var(--text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 5;
+}
+
+.day:hover .tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
+}
+
+
 /* SLIDEOVER PANEL */
 
 .hidden {
@@ -526,7 +554,7 @@ button[type="submit"] {
     width: 30px;
     height: 30px;
     border: none;            
-
+  
   #weekday-row {
     font-size: 0.7rem;
     margin-bottom: 6px;
@@ -544,11 +572,12 @@ button[type="submit"] {
     padding: 4px;
   }
 
+
   /* Slide-over becomes bottom drawer */
   .panel {
     width: 100%;
     height: auto
-    min-height: 45vh;
+    min-content: 45vh;
     max-height: 88vh;
     bottom: 0;
     top: auto;
