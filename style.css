@@ -34,6 +34,8 @@ body {
 
 /* HEADER */
 #site-header {
+  position: relative;
+  z-index: 2000;
   width: 100%;
   max-width: 1000px;
   display: flex;
@@ -42,11 +44,28 @@ body {
   margin-bottom: 30px;
 }
 
-#app-title {
+.app-title {
   font-family: var(--font-main);
   font-size: 1.8rem;
   color: var(--accent);
+  line-height: 1;
+  margin: 0;
+  pointer-events: auto;
+
 }
+
+#app-title {
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+#app-title:hover { 
+  opacity: 0.85; 
+}
+
 
 #app-nav {
   display: flex;
@@ -255,6 +274,7 @@ main {
   color: var(--text);
   display: flex;
   flex-direction: column;
+  pointer-events: none;
 }
 
 .panel-content {
@@ -265,6 +285,7 @@ main {
 
 .panel.show {
   transform: translateX(0);
+  pointer-events: auto;
 }
 
 .close-btn {
@@ -509,7 +530,8 @@ button[type="submit"] {
 @media (max-width: 900px) {
   #site-header {
     position: relative;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 10px;
     align-items: center;
   }
