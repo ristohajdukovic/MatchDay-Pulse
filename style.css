@@ -67,6 +67,18 @@ body {
   color: #fff;
 }
 
+#nav-toggle {
+  display: none;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
 /* MAIN */
 main {
   width: 100%;
@@ -496,10 +508,42 @@ button[type="submit"] {
 /* Tablet (≤900px) */
 @media (max-width: 900px) {
   #site-header {
+    position: relative;
     flex-direction: column;
     gap: 10px;
     align-items: center;
   }
+
+  #nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #app-nav {
+    position: absolute;
+    top: 56px;         
+    right: 12px;
+    left: 12px;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 10px;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+  }
+
+  /* when opened */
+  #app-nav.open {
+    display: flex !important;
+  }
+
+  #app-nav a {
+    padding: 10px 12px;
+  }
+}
 
   #calendar-nav {
     display: flex;
@@ -522,7 +566,7 @@ button[type="submit"] {
   .day {
     font-size: 0.85rem;
   }
-}
+
 
 /* Mobile (≤600px) */
 @media (max-width: 600px) {
@@ -554,7 +598,8 @@ button[type="submit"] {
     width: 30px;
     height: 30px;
     border: none;            
-  
+  }
+
   #weekday-row {
     font-size: 0.7rem;
     margin-bottom: 6px;
@@ -576,8 +621,8 @@ button[type="submit"] {
   /* Slide-over becomes bottom drawer */
   .panel {
     width: 100%;
-    height: auto
-    min-content: 45vh;
+    height: auto;
+    min-height: 45vh;
     max-height: 88vh;
     bottom: 0;
     top: auto;

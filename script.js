@@ -11,7 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCalendar(currentYear, currentMonth)
   bindNavigation();
   loadMatches();
+
+    const navToggle = document.getElementById("nav-toggle");
+  const appNav = document.getElementById("app-nav");
+  if (navToggle && appNav) {
+    navToggle.addEventListener("click", () => {
+      appNav.classList.toggle("open");
+    });
+  }
+  
 });
+
+
 
 // CHANGE MONTH
 function bindNavigation() {
