@@ -2,6 +2,8 @@
 let currentMonth;
 let currentYear;
 let matches = [];
+let selectedSports = [];
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const today = new Date();
@@ -19,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       appNav.classList.toggle("open");
     });
   }
-  
+
 });
 
 
@@ -63,9 +65,12 @@ function renderCalendar(year, month) {
 
   const firstDay = new Date(year, month, 1);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  
   let startIndex = (firstDay.getDay() + 6) % 7;
+
+  let visibleMatches = matches;
+  if (selectedSports && selectedSports.length > 0) {
+    visibleMatches = matches.filter(m => selectedSports.includes((m.sport || "").toLowerCase()));
+  }
 
   for (let i = 0; i < startIndex; i++) {
     const empty = document.createElement("div");
@@ -85,7 +90,7 @@ function renderCalendar(year, month) {
     if (d < 10) d = "0" + d;
     const dateStr = year + "-" + m + "-" + d;
 
-    const dayMatches = matches.filter(m => m.dateVenue === dateStr);
+    const dayMatches = visibleMatches.filter(mm => mm.dateVenue === dateStr);
 
     if (dayMatches.length > 0) {
     const dotsWrap = document.createElement("div");
@@ -223,12 +228,11 @@ function loadMatches() {
         }
       }
       
+
+    console.log("Loaded", matches.length, "matches");
+
       matches = baseMatches;
-      // filteredMatches = baseMatches;
-
-
-console.log("Loaded", matches.length, "matches");
-      
+      buildSportFilters(matches);
       renderCalendar(currentYear, currentMonth);
     })
     .catch(error => {
@@ -238,6 +242,124 @@ console.log("Loaded", matches.length, "matches");
       renderCalendar(currentYear, currentMonth);
     });
 }
+
+// Create sport filter checkboxes for desktop and mobile
+function buildSportFilters(data) {
+  const desktopFilter = document.getElementById("sport-filter");
+  const mobileFilterBox = document.getElementById("filter-box");
+  const mobileToggleButton = document.getElementById("filter-toggle");
+
+  // Clear any existing filters
+  if (desktopFilter) {
+    desktopFilter.innerHTML = "";
+  }
+  if (mobileFilterBox) {
+    mobileFilterBox.innerHTML = "";
+  }
+
+  //  Get all unique sports from the data
+  const uniqueSports = [];
+  
+  for (let i = 0; i < data.length; i++) {
+    const sport = data[i].sport || "";
+    const sportLower = sport.toLowerCase();
+    
+    if (sportLower && !uniqueSports.includes(sportLower)) {
+      uniqueSports.push(sportLower);
+    }
+  }
+  
+  uniqueSports.sort();
+
+  // Function to update calendar when filters change
+  function updateCalendarWithFilters(container) {
+    const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+    const checkedSports = [];
+    
+    for (let i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        checkedSports.push(checkboxes[i].value);
+      }
+    }
+    
+    selectedSports = checkedSports;
+    
+    if (selectedSports.length === 0) {
+      selectedSports = [];
+    }
+    
+    // Re-render the calendar with new filters
+    renderCalendar(currentYear, currentMonth);
+  }
+
+  // Create checkboxes for DESKTOP (inline filter)
+  if (desktopFilter) {
+    for (let i = 0; i < uniqueSports.length; i++) {
+      const sport = uniqueSports[i];
+      
+      // Create label and checkbox
+      const label = document.createElement("label");
+      
+      const sportName = sport.charAt(0).toUpperCase() + sport.slice(1);
+      
+      label.innerHTML = `
+        <input type="checkbox" value="${sport}" checked>
+        ${sportName}
+      `;
+      
+      desktopFilter.appendChild(label);
+    }
+    
+    desktopFilter.addEventListener("change", function() {
+      updateCalendarWithFilters(desktopFilter);
+    });
+  }
+
+  //Create checkboxes for MOBILE (popup filter)
+  if (mobileFilterBox) {
+    for (let i = 0; i < uniqueSports.length; i++) {
+      const sport = uniqueSports[i];
+      
+      
+      const label = document.createElement("label");
+      
+      
+      const sportName = sport.charAt(0).toUpperCase() + sport.slice(1);
+      
+      label.innerHTML = `
+        <input type="checkbox" value="${sport}" checked>
+        ${sportName}
+      `;
+      
+      mobileFilterBox.appendChild(label);
+    }
+    
+   
+    mobileFilterBox.addEventListener("change", function() {
+      updateCalendarWithFilters(mobileFilterBox);
+    });
+  }
+
+  
+  if (mobileToggleButton && mobileFilterBox) {
+    mobileToggleButton.addEventListener("click", function(e) {
+      e.stopPropagation(); 
+      mobileFilterBox.classList.toggle("hidden");
+    });
+    
+    document.addEventListener("click", function(e) {
+      const clickedInsideBox = mobileFilterBox.contains(e.target);
+      const clickedToggleButton = e.target === mobileToggleButton;
+      
+      if (!clickedInsideBox && !clickedToggleButton) {
+        mobileFilterBox.classList.add("hidden");
+      }
+    });
+  }
+}
+
+
+
 
 
 document.addEventListener("click", (e) => {
