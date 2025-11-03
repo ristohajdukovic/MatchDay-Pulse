@@ -199,6 +199,74 @@
             "originCompetitionId": "afc-champions-league", 
             "originCompetitionName": "AFC Champions League", 
             "sport": "football" 
-        } 
+        },
+
+        {
+  "season": 2026,
+  "status": "played",
+  "timeVenueUTC": "18:30:00",
+  "dateVenue": "2025-07-18",
+  "stadium": null,
+  "homeTeam": {
+    "name": "Salzburg",
+    "officialName": "FC Salzburg",
+    "slug": "fc-salzburg",
+    "abbreviation": "SAL",
+    "teamCountryCode": "AUT",
+    "stagePosition": null
+  },
+  "awayTeam": {
+    "name": "Sturm",
+    "officialName": "Sturm Graz",
+    "slug": "sturm-graz",
+    "abbreviation": "STU",
+    "teamCountryCode": "AUT",
+    "stagePosition": null
+  },
+  "result": null,
+  "stage": {
+    "id": "REGULAR_SEASON",
+    "name": "Regular Season",
+    "ordering": 1
+  },
+  "group": null,
+  "originCompetitionId": "austrian-bundesliga",
+  "originCompetitionName": "Austrian Bundesliga",
+  "sport": "football"
+},
+{
+  "season": 2026,
+  "status": "played",
+  "timeVenueUTC": "09:45:00",
+  "dateVenue": "2025-10-23",
+  "stadium": null,
+  "homeTeam": {
+    "name": "KAC",
+    "officialName": "EC KAC",
+    "slug": "ec-kac",
+    "abbreviation": "KAC",
+    "teamCountryCode": "AUT",
+    "stagePosition": null
+  },
+  "awayTeam": {
+    "name": "Capitals",
+    "officialName": "Vienna Capitals",
+    "slug": "vienna-capitals",
+    "abbreviation": "VIC",
+    "teamCountryCode": "AUT",
+    "stagePosition": null
+  },
+  "result": null,
+  "stage": {
+    "id": "REGULAR_SEASON",
+    "name": "Regular Season",
+    "ordering": 1
+  },
+  "group": null,
+  "originCompetitionId": "ice-hockey-league",
+  "originCompetitionName": "ICE Hockey League",
+  "sport": "ice hockey"
+}
+
     ] 
 } 
