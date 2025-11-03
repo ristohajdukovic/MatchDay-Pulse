@@ -74,10 +74,71 @@ form.addEventListener("submit", function(e) {
     return;
   }
 
+if (status === "scheduled" && matchDateTime <= now) {
+  alert("Scheduled matches must be set in the future.");
+  return;
+}
+
+if (status === "played" && matchDateTime > now) {
+  alert("Played matches cannot be set in the future.");
+  return;
+}
+
+// Team names can only have letters, numbers, spaces, and hyphens
+const hasInvalidCharacters = function(name) {
+  
+  for (let i = 0; i < name.length; i++) {
+    const char = name[i];
+    const isLetter = (char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z');
+    const isNumber = (char >= '0' && char <= '9');
+    const isSpace = char === ' ';
+    const isHyphen = char === '-';
+    
+    if (!isLetter && !isNumber && !isSpace && !isHyphen) {
+      return true; 
+    }
+  }
+  return false; 
+};
+
+if (hasInvalidCharacters(homeName) || hasInvalidCharacters(awayName)) {
+  alert("Team names can only contain letters, numbers, spaces, or hyphens.");
+  return;
+}
+
+// Check if this exact match already exists
+const existingMatches = sessionStorage.getItem("addedMatches");
+let savedMatches = [];
+
+if (existingMatches) {
+  savedMatches = JSON.parse(existingMatches);
+}
+
+let isDuplicate = false;
+
+for (let i = 0; i < savedMatches.length; i++) {
+  const existing = savedMatches[i];
+  
+  const sameDate = existing.dateVenue === dateVenue;
+  const sameTime = existing.timeVenueUTC === timeVenueUTC;
+  const sameHome = existing.homeTeam.name.toLowerCase() === homeName.toLowerCase();
+  const sameAway = existing.awayTeam.name.toLowerCase() === awayName.toLowerCase();
+  
+  if (sameDate && sameTime && sameHome && sameAway) {
+    isDuplicate = true;
+    break;
+  }
+}
+
+if (isDuplicate) {
+  alert("This match already exists.");
+  return;
+}
+
  
   const newMatch = {
     id: Date.now(),
-    season: 2026,
+    season: new Date().getFullYear(),
     status: status,
     sport: sport,
     dateVenue: dateVenue,
