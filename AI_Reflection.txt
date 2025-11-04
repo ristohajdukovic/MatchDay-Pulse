@@ -1,0 +1,86 @@
+AI Usage – MatchDay Pulse
+
+Overview
+For the MatchDay Pulse project, I used AI more like a tutor than a code generator, altough it did that as well. For me, the most important thing as a beginner developer is to learn how to think like a developer. How to think even about thinking as a developer, how to see the entire problem in my mind and separate it into the exexutable chunks, how to structure that logic step by step, test, fix bugs, and understand what’s happening behind the code. I wrote significant part of the code myself and used AI mainly to help me reason through problems, clean up logic, and explain certain JavaScript behaviors. I also used AI to write some helper functions or for boilerplate code.
+
+Around 80% of the HTML and CSS and part of the JavaScript logic were written by me. AI helped with technical explanations, bug fixes, and repetitive code that would take longer to type manually.
+
+---
+
+Main Areas Where AI Helped
+
+1. Loading and Merging Data
+The hardest logic was in loadMatches().  
+I had to fetch the base matches from matches.json, then merge them with the matches users added in sessionStorage.  
+At first, I didn’t understand how to combine them correctly and make sure each match had a unique ID.  
+
+It showed me how to loop over both datasets and combine them safely. I also learned to check if IDs already exist, and if not, generate them using createMatchId().
+Before that, I tried to merge them directly with [...baseMatches, ...newMatches], which caused duplicates and crashes.
+This version worked cleanly and also taught me about defensive programming.
+
+2. Unique ID Creation for Matches
+Another advanced part was making each match have its own unique ID so that it can be opened later from matchdet.html.
+AI helped me write a helper for that. I didn’t know about optional chaining (?.) before, and AI explained that it prevents errors if a property like match.homeTeam doesn’t exist yet.
+It also showed how to normalize names to lowercase and replace spaces with dashes, which I didn’t know could be done so simply with replace(/ /g, "-").
+
+3. Error Handling and Safe Parsing
+When I tried to load saved matches, the app crashed if the sessionStorage JSON was broken.
+AI explained that JSON.parse() throws an error, and I needed to use try/catch. That one helper taught me a lot — not just about catching errors, but about returning fallback values instead of breaking the program completely.
+
+4. Building the Sport Filter
+AI also helped with the logic that automatically builds sport filters based on the loaded data.
+It taught me how to extract unique values from a large dataset without using frameworks or sets, and then dynamically build checkboxes for each sport using createElement().
+Before that, I would have hardcoded all sports manually. 
+
+---
+
+How I Used AI
+I followed this process:
+1. Try to solve the problem myself.
+2. If stuck, ask AI to explain why it’s not working.
+3. Read the explanation and rewrite the code myself.
+4. Test it step by step in the browser console.
+
+I used AI for things like generating country lists or other boilerplate code, but only becuase it's repetetive and I already kknew the process.
+
+---
+
+Technical Choices
+– Vanilla JavaScript: I didn’t use frameworks because I wanted to show I can handle DOM and logic by myself, and not to succumb to experimentation.
+– Modular code: I split everything into script.js, add.js, and utils.js for clarity.
+– sessionStorage: Used for runtime data so matches stay during browsing but reset on browser close.
+– Simple UX: Focused on working logic and clarity rather than complex styling or effects.
+
+---
+
+If I had more time
+If I continued this project, I would add:
+– Edit and Delete functions so users can update or remove matches directly from the calendar.
+– Persistent storage using localStorage or a simple backend so data doesn’t disappear after closing the tab.
+– Better UI feedback like toasts or modals instead of browser alerts.
+– Loading states and error messages while fetching data, to improve user experience.
+– Sorting and filtering options (e.g., by date, team, or competition) for easier browsing.
+– Tests for critical functions like loadMatches() and createMatchId() to avoid regressions.
+
+If I had more freedom in the project, and inspired by what Sportradar do, I would also add an interactive feature called "MatchDay Pulse."  
+It would let users vote based on how excited they are about each match — for example:
+
+- I'd miss my wedding for this
+- Definitely watching  
+- If I'm home, sure  
+- Maybe highlights later  
+- Only because I bet on it  
+- Even stranded on a desert island – still no  
+
+Each option would count as one type of “reaction.” The votes would be stored (for example, in localStorage or later in a small database), and each match would show a ''pulse rating'' based on votes and would change after every vote.  
+
+This would make the app feel more social, users could see how popular or “hyped” each match is before it happens. Over time, it could even show stats like:  
+– Which teams get the most hype  
+– How many users say they’d bet on it  
+– What percent are planning to watch live vs just highlights  
+
+The idea is to literally “feel the pulse” of every match, based on user reactions.  
+-
+
+Summary
+AI acted as my friend senior developer, someone I could ask why something works the way it does, or is my line of thinking proper. I wrote, broke, and fixed most of the code myself but AI helped a lot, I'm not going to lie. AI helped me understand patterns, structure, and logic. I didn't use Codex, Claude Code or Github Copilot at all, just LLMs.
