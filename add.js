@@ -62,6 +62,7 @@ form.addEventListener("submit", function(e) {
   const stage = document.getElementById("stage").value;
   const stadium = document.getElementById("stadium").value;
 
+
   // VALIDATIONS
   if (!sport || !status || !dateVenue || !timeVenueUTC || !homeName || !awayName) {
     alert("Please fill in all required fields.");
@@ -73,6 +74,9 @@ form.addEventListener("submit", function(e) {
     alert("Home and away teams cannot be the same.");
     return;
   }
+
+const matchDateTime = new Date(dateVenue + "T" + timeVenueUTC + "Z");
+const now = new Date();
 
 if (status === "scheduled" && matchDateTime <= now) {
   alert("Scheduled matches must be set in the future.");

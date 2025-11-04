@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
   currentMonth = today.getMonth();
   currentYear = today.getFullYear();
 
-  renderCalendar(currentYear, currentMonth)
   bindNavigation();
   loadMatches();
 
@@ -210,7 +209,14 @@ function createMatchId(match) {
 // LOAD MATCHES
 function loadMatches() {
   fetch("./matches.json")
-    .then(response => response.json())
+    .then(response => {
+
+    if (!response.ok) {
+        throw new Error("Failed to load matches file");
+    }
+
+    return response.json()
+})
     .then(json => {
       const baseMatches = json.data;
       const addedMatches = sessionStorage.getItem("addedMatches");
@@ -283,6 +289,9 @@ function buildSportFilters(data) {
     }
     
     selectedSports = checkedSports;
+
+    sessionStorage.setItem("selectedSports", JSON.stringify(selectedSports));
+
     
     if (selectedSports.length === 0) {
       selectedSports = [];
@@ -292,7 +301,7 @@ function buildSportFilters(data) {
     renderCalendar(currentYear, currentMonth);
   }
 
-  // Create checkboxes for DESKTOP (inline filter)
+  // Create checkboxes for DESKTOP
   if (desktopFilter) {
     for (let i = 0; i < uniqueSports.length; i++) {
       const sport = uniqueSports[i];

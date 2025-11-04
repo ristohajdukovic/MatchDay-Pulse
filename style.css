@@ -348,7 +348,7 @@ main {
   box-shadow: -4px 0 16px rgba(0, 0, 0, 0.4);
   transform: translateX(100%);
   transition: transform var(--transition);
-  z-index: 1000;
+  z-index: 2500;
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -375,6 +375,12 @@ main {
   position: absolute;
   top: 12px;
   right: 16px;
+}
+
+.icon-close {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
 }
 
 #panel-title {

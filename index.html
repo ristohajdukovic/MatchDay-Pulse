@@ -62,9 +62,11 @@
     </section>
 
 <!-- SLIDEOVER -->
-<div id="match-panel" class="panel hidden">
-  <div class="panel-content">
-    <button id="close-panel" class="close-btn">&times;</button>
+<div id="match-panel" class="panel hidden" role="dialog" aria-labelledby="panel-title">
+  <div class="panel-content" role="document">
+    <button id="close-panel" class="close-btn" aria-label="close">
+        <img src="./icons/close.svg" alt="Close" class="icon-close" />
+    </button>
     <h2 id="panel-title">Matches</h2>
     <div id="panel-body"></div>
   </div>
