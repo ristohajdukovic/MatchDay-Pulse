@@ -76,6 +76,10 @@ function renderCalendar(year, month) {
     box.className = "day";
     box.textContent = day;
 
+    if (isToday(year, month, day)) {
+    box.classList.add("today");
+  }
+
     let m = month + 1;
     let d = day;
     if (m < 10) m = "0" + m;
@@ -213,9 +217,11 @@ function loadMatches() {
       }
       
 
-    console.log("Loaded", matches.length, "matches");
 
       matches = baseMatches;
+      
+      console.log("Loaded", matches.length, "matches");
+
       
       buildSportFilters(matches);
       renderCalendar(currentYear, currentMonth);
@@ -223,7 +229,6 @@ function loadMatches() {
     .catch(error => {
       console.log("Error loading matches:", error);
       matches = [];
-      filteredMatches = [];
       renderCalendar(currentYear, currentMonth);
     });
 }

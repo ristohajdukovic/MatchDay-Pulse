@@ -888,7 +888,6 @@ button[type="submit"] {
 
  
   .day.today {
-    outline: 1px solid var(--accent);
     color: var(--accent);
   }
 
