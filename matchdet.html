@@ -69,7 +69,7 @@
   </main>
 
 
-<script src="./src/utils.js" defer></script>
+<script src="./src/utils.js"></script>
 
 <script>
 
@@ -141,7 +141,7 @@ if (id) {
 
       const infoValues = document.querySelectorAll(".info-value");
       infoValues[0].textContent = match.dateVenue || "-";
-      infoValues[1].textContent = formatTimeHHMM(match.timeVenueUTC) : "-";
+      infoValues[1].textContent = match.timeVenueUTC ? formatTimeHHMM(match.timeVenueUTC) : "-";
       infoValues[2].textContent = match.stadium || "Unknown";
     })
     .catch(err => console.error("Error loading match:", err));
