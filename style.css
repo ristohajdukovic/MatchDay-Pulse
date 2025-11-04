@@ -675,6 +675,26 @@ button[type="submit"] {
     justify-content: center;
   }
 
+  #filter-box {
+    position: fixed;
+    top: 140px;
+    right: 10px;
+    left: auto;
+    display: none;
+    flex-direction: column;
+    padding: 8px;
+    z-index: 2000;
+  }
+
+  #filter-box label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 0.875rem;
+  }
+
+
   #filter-box:not(.hidden) {
     display: block; 
   }
