@@ -52,7 +52,8 @@ const form = document.getElementById("addMatchForm");
 form.addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const sport = document.getElementById("sport").value;
+  const sportRaw = document.getElementById("sport").value;
+  const sport = sportRaw.replace("-", " ").toLowerCase();
   const status = document.getElementById("status").value;
   const dateVenue = document.getElementById("dateVenue").value;
   const timeVenueUTC = document.getElementById("timeVenueUTC").value;
