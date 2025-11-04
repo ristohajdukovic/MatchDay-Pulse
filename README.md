@@ -51,20 +51,20 @@ If you have Python 3 installed, you can use its built-in HTTP server.
 
 This project successfully fulfills all the requirements of the coding exercise:
 
-* **✅ Task 1: Calendar View:** Implemented a full calendar grid with event markers and tooltips.
-* **✅ Task 2: Event Detail Page:** Clicking a day opens a panel, and clicking a match in the panel opens a full detail page.
-* **✅ Task 3: Add Event Functionality:** A functional form on `add.html` saves new events to `sessionStorage`, which updates the calendar.
-* **✅ Task 4: Responsiveness:** The site is fully responsive, with a mobile-friendly menu, filter UI, and a "panel-to-drawer" transition for the match list.
-* **✅ Task 5: Navigation:** A clear and persistent navigation header links all pages.
+* ** Task 1: Calendar View:** Implemented a full calendar grid with event markers and tooltips.
+* ** Task 2: Event Detail Page:** Clicking a day opens a panel, and clicking a match in the panel opens a full detail page.
+* ** Task 3: Add Event Functionality:** A functional form on `add.html` saves new events to `sessionStorage`, which updates the calendar.
+* ** Task 4: Responsiveness:** The site is fully responsive, with a mobile-friendly menu, filter UI, and a "panel-to-drawer" transition for the match list.
+* ** Task 5: Navigation:** A clear and persistent navigation header links all pages.
 
 ### Optional Features Implemented
 
-* **✅ Filters:** A functional sport filter is included on both desktop and mobile.
-* **✅ Styling and Enhancements:** The application has a clean, modern dark-mode design.
-* **✅ Persistent Storage:** `sessionStorage` is used to meet the "runtime" storage requirement.
-* **✅ Testing:** A `testing.md` file is included with a manual test checklist.
+* ** Filters:** A functional sport filter is included on both desktop and mobile.
+* ** Styling and Enhancements:** The application has a clean, modern dark-mode design.
+* ** Persistent Storage:** `sessionStorage` is used to meet the "runtime" storage requirement.
+* ** Testing:** A `testing.md` file is included with a manual test checklist.
 
-## 💡 Design Decisions
+## Design Decisions
 
 * **Panel vs. Page:** Instead of navigating to a new page for a *day's* events, I used a slide-over panel. This feels faster and keeps the user in the context of the calendar. On mobile, this panel transforms into a bottom drawer for better usability.
 * **Session Storage:** `sessionStorage` was chosen to meet the "runtime only" requirement. It persists data across page loads (e.g., from `add.html` back to `index.html`) but is automatically cleared when the browser tab is closed, fulfilling the "no database" constraint.
