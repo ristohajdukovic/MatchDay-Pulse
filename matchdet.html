@@ -70,17 +70,6 @@
 
 
 <script>
-// Helper function (same as in script.js)
-function createMatchId(match) {
-  const date = match.dateVenue || "nodate";
-  const homeName = match.homeTeam?.name || "unknown";
-  const awayName = match.awayTeam?.name || "unknown";
-  
-  const home = homeName.toLowerCase().replace(/ /g, "-");
-  const away = awayName.toLowerCase().replace(/ /g, "-");
-  
-  return date + "_" + home + "_" + away;
-}
 
 // Get the ID from URL
 const params = new URLSearchParams(window.location.search);
@@ -156,6 +145,8 @@ if (id) {
     .catch(err => console.error("Error loading match:", err));
 }
 </script>
+
+<script src="./src/utils.js" defer></script>
 
 
 </body>
