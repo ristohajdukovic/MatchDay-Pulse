@@ -69,6 +69,8 @@
   </main>
 
 
+<script src="./src/utils.js" defer></script>
+
 <script>
 
 // Get the ID from URL
@@ -139,15 +141,12 @@ if (id) {
 
       const infoValues = document.querySelectorAll(".info-value");
       infoValues[0].textContent = match.dateVenue || "-";
-      infoValues[1].textContent = match.timeVenueUTC ? match.timeVenueUTC.substring(0,5) : "-";
+      infoValues[1].textContent = formatTimeHHMM(match.timeVenueUTC) : "-";
       infoValues[2].textContent = match.stadium || "Unknown";
     })
     .catch(err => console.error("Error loading match:", err));
 }
 </script>
-
-<script src="./src/utils.js" defer></script>
-
 
 </body>
 </html>
